@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver-deploy
+  namespace: webserver
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: webserver
+      env: development
+  template:
+    metadata:
+      labels:
+        app: webserver
+        env: development
+    spec:
+      containers:
+      - name: webserver
+        image: nginx:alpine
+        resources:
+          requests:
+            cpu: "0.25"
+            memory: "64Mi"
+          limits:
+            cpu: "0.50"
+            memory: "128Mi"
+        ports:
+        - name: http
+          containerPort: 80
